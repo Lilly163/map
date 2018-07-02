@@ -16,46 +16,37 @@
     <div id="mask"></div>
     <!-- 遮罩展示内容 -->
     <div id="showInfo">
-       <img src="http://webapi.amap.com/theme/v1.3/loading.gif" alt="" srcset="">
     </div>
     <!-- 搜索以及内容展示区域 -->
-    <div class="search">
-        <section class="search"> 
-            <div class='right'>
-                <div class='top' style='height:30px;' ></div>
-                    <input type="text" class="search_input" placeholder="请输入目的地" id='keyword'  value=''>
-                    <span class='icon_search' id='searchButton'></span>
+    <section class="search"> 
+        <div class='right'>
+            <div class='top' style='height:30px;' ></div>
+                <input type="text" class="search_input" placeholder="请输入目的地" id='keyword'  value=''>
+                <span class='icon_search' id='searchButton'></span>
+        </div>
+        <div id="searchResult"></div>   <!--input输入以后出现的搜索框 -->
+    </section>
+    <section class="detail"   style="display: none">
+        <!-- <div id='locating' style='display:none'>
+            <img src='./images/loading.gif'/><div>定位中,请稍候...</div>
+        </div> -->
+        <div class="storeName">
+            <div>
+                <span class="title"></span>&nbsp;
             </div>
-            <div id="searchResult"></div>   <!--input输入以后出现的搜索框 -->
-    </div>
-        </section>
-        <section class="detail">
-            <!-- <div id='locating' style='display:none'>
-               <img src='./images/loading.gif'/><div>定位中,请稍候...</div>
-            </div> -->
-            <div class="storeName">
-                <div>
-                    <span class="title">彩票站</span>&nbsp;
-                </div>
-                <a class="phone" href='tel:17610366710'><img src="./images/phone2.png" alt=""></a>
-                <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a>
-            </div>
-            <div class="location">地址描述</div>   <!--地址描述 -->
-        </section>
+            <a class="phone" href='tel:17610366710'><img src="./images/phone2.png" alt=""></a>
+            <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a>
+        </div>
+        <div class="location"></div>   <!--地址描述 --> 
+    </section>
     </div>
 </body>
-<script src="https://cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>
+
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&plugin=AMap.Geolocation,AMap.ToolBar,AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete,AMap.Walking&key=e37784dc2af49baee57042a84baeeba1"></script>
-<script>
-    // 地图生成
-    // var map = new AMap.Map('container', {
-    //     resizeEnable: true,
-    //     zoom:17,//级别
-    // });
-    // $('#routePlan').click(function(e){
-    //  location.href = `http://uri.amap.com/navigation?from=116.478346,39.997361,startpoint&to=116.3246,39.966577,endpoint&via=116.402796,39.936915,midwaypoint&mode=car&policy=1&src=mypage&coordinate=gaode&callnative=0`
-    // })
-</script>
- <script type="text/javascript" src='./js/location.js'></script>  
- <script type="text/javascript" src='./js/search.js'></script>      
+<link rel="stylesheet" href="css/alert.css">
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src='js/alert.js'></script>
+<script type="text/javascript" src='./js/location.js'></script>  
+<script type="text/javascript" src='./js/search.js'></script>      
 </html>

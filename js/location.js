@@ -16,7 +16,7 @@ var map = new AMap.Map('container', {
 	map.addControl(geolocation);
 	geolocation.getCurrentPosition();
 	AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
-	// AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+	AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
 	function onComplete (data) {
 		let startLng = Math.abs(data.position.lng);
 		let startLat = Math.abs(data.position.lat);
@@ -42,6 +42,7 @@ var map = new AMap.Map('container', {
 					autoFitView:true,
 				   }); 
 				   marker.on('click',function markerClick(e){
+					$('.detail').css('display','block');
 					walking.clear();  //清除上一次规划路线
 					let endLng = e.lnglat.lng;
 					let endLat = e.lnglat.lat;
@@ -69,18 +70,18 @@ var map = new AMap.Map('container', {
 		})
     }
 	
-	//   function onError (data) {
-	// 	// 定位出错
-	// 	if (data.message.indexOf('Geolocation permission denied.') !== -1) {
-	// 		//Geolocation permission denied.表示用户禁用了浏览器或者APP的定位权限或者关闭了手机的定为服务
-	// 		//或者当前页面为非安全页面,Chrome或者IOS10等系统会禁用非安全页面的定位请求，如果您的页面还没有支持HTTPS请尽快升级
-	// 		//安全页面指的是支持HTTPS的Web站点，而且是通过https协议打开的页面。安全页面也包括本地页面
-	// 		$('.detail').css('paddingTop','1.2rem').html('您好，请在系统的隐私设置中打开当前应用的定位权限。');
-	// 	} else {
-	// 		$('.detail').css('paddingTop','1.2rem').html('无法获取精确位置,将定位您所在的城市。');
-	// 	}
-	// 	onLocateFailed();
-	//   }
+	  function onError (data) {
+		// 定位出错
+		if (data.message.indexOf('Geolocation permission denied.') !== -1) {
+			//Geolocation permission denied.表示用户禁用了浏览器或者APP的定位权限或者关闭了手机的定为服务
+			//或者当前页面为非安全页面,Chrome或者IOS10等系统会禁用非安全页面的定位请求，如果您的页面还没有支持HTTPS请尽快升级
+			//安全页面指的是支持HTTPS的Web站点，而且是通过https协议打开的页面。安全页面也包括本地页面
+			
+		} else {
+			// $('.detail').css('paddingTop','1.2rem').html('无法获取精确位置,将定位您所在的城市。');
+		}
+		// onLocateFailed();
+	  }
 //  var startLocate = function() {
 //  	document.getElementById('locating').style.display = 'block';
 //  	geolocation.getCurrentPosition(function(status, result) {
