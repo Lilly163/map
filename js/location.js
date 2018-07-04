@@ -2,7 +2,7 @@ var map = new AMap.Map('container', {
 	resizeEnable: true,
 	zoom:17,//级别
 });
-Dialog.init('<img src="../images/loading.gif" width="80rem"/>',1000)
+Dialog.init('正在定位,请稍后',1500)
  //地理编码插件，用于通过坐标获取地址信息
  var geocoder = new AMap.Geocoder();
  //添加定位组件，用于获取用户当前的精确位置
@@ -74,7 +74,7 @@ Dialog.init('<img src="../images/loading.gif" width="80rem"/>',1000)
 	  function onError (data) {
 		// 定位出错
 		if (data.message.indexOf('Geolocation permission denied.') !== -1) {
-			// Dialog.init('定位失败!请打开浏览器或者APP的定位权限',1800);
+			Dialog.init('定位失败!请打开浏览器或者APP的定位权限',1800);
 		} else {
 			Dialog.init('无法获取精确位置,将定位您所在的城市。',1800);
 		}

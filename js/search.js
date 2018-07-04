@@ -26,8 +26,8 @@ $('#searchButton').click(() => {
 			});
 			map.add(markerNow);
 			$.ajax({
-				url: 'http://101.201.108.106:8127/findAdminStroe?city=北京市',
-				dataType: 'jsonp',
+				url: 'http://101.201.108.106:8127/findAdminStroe?city' + city,
+				dataType: 'json',
 				success: (data) => {
 					let datas = data.data;
 					let lnglats = [];
