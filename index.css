@@ -3,35 +3,6 @@
     }
     body{height:100%;margin:0px;padding:0px}
     #container{height:100%}
-    /* 遮罩 */
-    #mask{   
-        display: none;   
-        position: absolute;   
-        top: 0%;   
-        left: 0%;   
-        width: 100%;   
-        height: 100%; 
-        background: url(./images/loading.gif) #c8cece center center no-repeat;
-        background-size: 4rem,4rem;
-        z-index:1001;   
-        -moz-opacity: 0.8;   
-        opacity:.80;   
-        filter: alpha(opacity=80);  
-    }   
-     /* #showInfo img {
-      width: 90px;
-      height:90px;
-     }  
-     #showInfo{   
-        display: block;   
-        position: absolute;   
-        top: 35%;   
-        left: 37%;   
-        width: 33%;   
-        height: auto;    
-        z-index:1002;   
-    }   */
-    /* 遮罩结束 */
     /* 搜索开始 */
     .search {
          position: fixed;

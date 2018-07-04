@@ -2,6 +2,7 @@ var map = new AMap.Map('container', {
 	resizeEnable: true,
 	zoom:17,//级别
 });
+Dialog.init('<img src="../images/loading.gif" width="80rem"/>',1000)
  //地理编码插件，用于通过坐标获取地址信息
  var geocoder = new AMap.Geocoder();
  //添加定位组件，用于获取用户当前的精确位置
@@ -73,14 +74,11 @@ var map = new AMap.Map('container', {
 	  function onError (data) {
 		// 定位出错
 		if (data.message.indexOf('Geolocation permission denied.') !== -1) {
-			//Geolocation permission denied.表示用户禁用了浏览器或者APP的定位权限或者关闭了手机的定为服务
-			//或者当前页面为非安全页面,Chrome或者IOS10等系统会禁用非安全页面的定位请求，如果您的页面还没有支持HTTPS请尽快升级
-			//安全页面指的是支持HTTPS的Web站点，而且是通过https协议打开的页面。安全页面也包括本地页面
-			
+			// Dialog.init('定位失败!请打开浏览器或者APP的定位权限',1800);
 		} else {
-			// $('.detail').css('paddingTop','1.2rem').html('无法获取精确位置,将定位您所在的城市。');
+			Dialog.init('无法获取精确位置,将定位您所在的城市。',1800);
 		}
-		// onLocateFailed();
+		onLocateFailed();
 	  }
 //  var startLocate = function() {
 //  	document.getElementById('locating').style.display = 'block';
@@ -103,17 +101,17 @@ var map = new AMap.Map('container', {
 //  };
 
  //定位失败之后进行城市定位
-//  var onLocateFailed = function() {
-//  	geolocation.getCityInfo(function(status, result) {
-//  		map.setZoom(14);
-//  		showLocation(result.center); //在城市中心点显示起始marker
-//  		// PlaceSearch.setCity(result.citycode);
-//  		// autoComplete.setCity(result.citycode);
-//  	})
-//  };
+ var onLocateFailed = function() {
+ 	geolocation.getCityInfo(function(status, result) {
+ 		map.setZoom(14);
+ 		// showLocation(result.center); //在城市中心点显示起始marker
+ 		// PlaceSearch.setCity(result.citycode);
+ 		// autoComplete.setCity(result.citycode);
+ 	})
+ };
  //定位成功
  var onLocateSuccess = function(result) {
- 	showLocation(result.position); //在定位结果显示起始marker
+ 	// showLocation(result.position); //在定位结果显示起始marker
  	var city = result.addressComponent.city;
  	var province = result.addressComponent.province;
  	var district = result.addressComponent.district;
