@@ -1,13 +1,11 @@
 var searchInput = document.getElementById('keyword');
+let city = "";
 //输入提示组件，在searchInput输入文字后，将自动显示相关的地点提示
 var autoComplete = new AMap.Autocomplete({
 	input: searchInput,
 	citylimit: true,
 	noshowDistrict: true
 });
-//点击搜索按钮的时候执行关键字搜索
-
-// var auto = new AMap.Autocomplete(autoComplete);
 var placeSearch = new AMap.PlaceSearch({
 	map: map
 }); //构造地点查询类
@@ -78,29 +76,34 @@ $('#searchButton').click(() => {
 
 	});
 })
+function getCity( lnglatXY ){
+	AMap.service('AMap.Geocoder',function(){
+		//实例化Geocoder
+		geocoder = new AMap.Geocoder({
+			city: ""//城市，默认：“全国”
+		});
+		geocoder.getAddress(lnglatXY, function(status, result) {
+			if (status === 'complete' && result.info === 'OK') {
+				city = result.regeocode.addressComponent.city;
+				if(  city === ""){
+					Dialog.init('暂不支持该地区查询', 2000);
+				}
+			}else{
+				// Dialog.init('获取位置失败,请重试', 2000);
+			}
+		});
+	})
+	return city;
+}
 // 选中某一条下拉提示时触发
 AMap.event.addListener(autoComplete, "select", select); //注册监听，当选中某条记录时会触发
 function select(e) {
 	map.clearMap();
 	let startLng = e.poi.location.lng;
 	let startLat = e.poi.location.lat;
-	// document.getElementById('mask').style.display = 'block';
-	let strLeng = e.poi.district;
-	let strLengLimit1 = strLeng.indexOf('省');
-	let strLengLimit2 = strLeng.indexOf('市');
-	let strLengLimit3 = strLeng.indexOf('自治区');
-	if (strLengLimit1 !== -1) { //省内市
-		let strLengLimitSpecial = strLeng.indexOf('市');
-		city = strLeng.substring(strLengLimit1 + 1, strLengLimitSpecial) + '市';
-	} else if (strLengLimit2 !== -1) {
-		city = strLeng.substring(0, strLengLimit2) + '市'
-	} else if( strLengLimit3 !== -1 ) {
-		let strLengLimitSpecial = strLeng.indexOf('市');
-		city = strLeng.substring(strLengLimit3 + 3, strLengLimitSpecial) + '市'
-		console.log(strLengLimit3)
-		console.log(strLengLimitSpecial)
-	}
-	console.log(city)
+	let lnglatXY = [startLng,startLat];
+	// 获取当前城市
+
 	if (e.poi && e.poi.location) {
 		map.setZoom(13),
 			map.setCenter(e.poi.location)

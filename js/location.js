@@ -2,7 +2,7 @@ var map = new AMap.Map('container', {
 	resizeEnable: true,
 	zoom:17,//级别
 });
-Dialog.init('正在定位,请稍后',1500)
+window.dialog =  Dialog.init('正在定位,请稍后')
  //地理编码插件，用于通过坐标获取地址信息
  var geocoder = new AMap.Geocoder();
  //添加定位组件，用于获取用户当前的精确位置
@@ -19,6 +19,7 @@ Dialog.init('正在定位,请稍后',1500)
 	AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
 	AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
 	function onComplete (data) {
+		Dialog.close(dialog);
 		let startLng = Math.abs(data.position.lng);
 		let startLat = Math.abs(data.position.lat);
 		$.ajax({
@@ -74,31 +75,14 @@ Dialog.init('正在定位,请稍后',1500)
 	  function onError (data) {
 		// 定位出错
 		if (data.message.indexOf('Geolocation permission denied.') !== -1) {
+			Dialog.close(dialog);
 			Dialog.init('定位失败!请打开浏览器或者APP的定位权限',1800);
 		} else {
+			Dialog.close(dialog);
 			Dialog.init('无法获取精确位置,将定位您所在的城市。',1800);
 		}
 		onLocateFailed();
 	  }
-//  var startLocate = function() {
-//  	document.getElementById('locating').style.display = 'block';
-//  	geolocation.getCurrentPosition(function(status, result) {
-//  		if (status == 'complete') {
-//  			onLocateSuccess(result) //定位成功
-//  		} else if (status == 'error') {
-//  			//定位失败
-//  			if (result.message.indexOf('Geolocation permission denied.') !== -1) {
-//  				//Geolocation permission denied.表示用户禁用了浏览器或者APP的定位权限或者关闭了手机的定为服务
-//  				//或者当前页面为非安全页面,Chrome或者IOS10等系统会禁用非安全页面的定位请求，如果您的页面还没有支持HTTPS请尽快升级
-//  				//安全页面指的是支持HTTPS的Web站点，而且是通过https协议打开的页面。安全页面也包括本地页面
-//  				// showTip('您好，请在系统的隐私设置中打开当前应用的定位权限。');
-//  			} else {
-//  				// showTip('无法获取精确位置,将定位您所在的城市。');
-//  			}
-//  			// onLocateFailed();
-//  		}
-//  	})
-//  };
 
  //定位失败之后进行城市定位
  var onLocateFailed = function() {
