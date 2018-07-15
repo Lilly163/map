@@ -13,63 +13,84 @@ window.dialog =  Dialog.init('正在定位,请稍后')
 	 showButton: false, //是否现实组件的定位按钮
 	 timeout: 5000, //浏览器定位超时时间5s
 	 
- });
+});
+function getCity(lnglatXY) {
+	return new Promise(function (reslove, reject) {
+	let newcity = '';
+	AMap.service('AMap.Geocoder',function(){
+		//实例化Geocoder
+		geocoder = new AMap.Geocoder({
+			city: ""//城市，默认：“全国”
+		});
+		geocoder.getAddress(lnglatXY, function (status, result) {
+			if (status === 'complete' && result.info === 'OK') {
+				newcity = result.regeocode.addressComponent.city || result.regeocode.addressComponent.province;
+				reslove(newcity)
+			}else{
+				Dialog.init('该地区暂不支持', 2000);
+			}
+		});
+	 })
+	})
+}
 	map.addControl(geolocation);
 	geolocation.getCurrentPosition();
 	AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
 	AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
-	function onComplete (data) {
-		Dialog.close(dialog);
+function onComplete(data) {
+	Dialog.close(dialog);
 		let startLng = Math.abs(data.position.lng);
 		let startLat = Math.abs(data.position.lat);
-		$.ajax({
-			url:'../data/mock.json',
-			type:'GET',
-			data:{'lng':startLng,'lat':startLat},
-			dataType:'json',
-			success:(data)=>{
-			   let datas = data.data;
-			   let lnglats = [];
-			   datas.map((value,index)=>{
-				 lnglats.push([value.longitude,value.latitude])
-			   })
-			   for(let i = 0, marker ; i < lnglats.length; i++){
-				   marker=new AMap.Marker({
-						   position:lnglats[i],
-						   map:map,
-						   icon: './images/result.png', // 添加 Icon 图标 URL
-				   }); 
-				   var walking = new AMap.Walking({
-					map: map,
-					autoFitView:true,
-				   }); 
-				   marker.on('click',function markerClick(e){
-					$('.detail').css('display','block');
-					walking.clear();  //清除上一次规划路线
-					let endLng = e.lnglat.lng;
-					let endLat = e.lnglat.lat;
-					console.log(startLng,startLat,endLng,endLat)
-					$('.storeName div>.title').html(datas[i].name);
-					$('.location').html(datas[i].address);
-					$('.storeName .phone').attr('href','tel:'+datas[i].phone);
-                    //进行路线规划，并对返回信息进行处理    
-					walking.search([startLng,startLat], [endLng,endLat],function(){
-						
-					});
-					
-	
-					//  $('.storeName .map').attr('href',`http://uri.amap.com/navigation?from=${startLng},${startLat}&to=${endLng},${endLat}&mode=walk&policy=1&src=mypage&coordinate=gaode&callnative=0`);
-				    $('.storeName .map').click(()=>{
-						walking.searchOnAMAP({
-							origin:[startLng,startLat],
-							destination:[endLng,endLat]
+		let lnglatXY = [startLng, startLat];
+	getCity(lnglatXY).then(city => { 
+            $.ajax({
+				url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
+				dataType: 'json',
+				success: (data) => {
+					console.log(data)
+				   let datas = data.data;
+				   let lnglats = [];
+				   datas.map((value,index)=>{
+					 lnglats.push([value.longitude,value.latitude])
+				   })
+				   for(let i = 0, marker ; i < lnglats.length; i++){
+					   marker=new AMap.Marker({
+							   position:lnglats[i],
+							   map:map,
+							//    icon: './images/result.png', // 添加 Icon 图标 URL
+							icon: new AMap.Icon({            
+								image: './images/result.png',
+								size: new AMap.Size(40, 40),  //图标大小
+								imageSize: new AMap.Size(40,40)
+							})           
+					   }); 
+					   var walking = new AMap.Walking({
+						map: map,
+						autoFitView:true,
+					   }); 
+					   marker.on('click',function markerClick(e){
+						$('.detail').css('display','block');
+						walking.clear();  //清除上一次规划路线
+						let endLng = e.lnglat.lng;
+						let endLat = e.lnglat.lat;
+						console.log(startLng,startLat,endLng,endLat)
+						$('.storeName div>.title').html(datas[i].name);
+						$('.location').html(datas[i].address);
+						   $('.storeName .phone').attr('href', 'tel:' + datas[i].phone);
+						   walking.search([startLng, startLat], [endLng, endLat]);   
+						//进行路线规划，并对返回信息进行处理    
+						$('.storeName .map').click(()=>{
+							walking.searchOnAMAP({
+								origin:[startLng,startLat],
+								destination:[endLng,endLat]
+							})
 						})
 					})
-				})
-				  map.add(marker);
-			  }
-			}
-		})
+					  map.add(marker);
+				  }
+				}
+			})
+		})	
     }
 	
 	  function onError (data) {
