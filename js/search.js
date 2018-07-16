@@ -17,14 +17,14 @@ $('#searchButton').click(() => {
 			let pois = SearchResult.poiList.pois[0].location;
 			let startLng = pois.lng;
 			let startLat = pois.lat;
-			let lnglatXY = [startLng,startLat];
+			let lnglatXY = [startLng, startLat];
 			map.setZoom(13),
 				map.setCenter(pois)
 			var markerNow = new AMap.Marker({
 				position: new AMap.LngLat(pois.lng, pois.lat)
 			});
 			map.add(markerNow);
-			getCity(lnglatXY).then(city => { 
+			getCity(lnglatXY).then(city => {
 				$.ajax({
 					url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
 					dataType: 'json',
@@ -39,10 +39,10 @@ $('#searchButton').click(() => {
 							marker = new AMap.Marker({
 								position: lnglats[i],
 								map: map,
-								icon: new AMap.Icon({            
+								icon: new AMap.Icon({
 									image: './images/result.png',
 									size: new AMap.Size(32, 32),  //图标大小
-									imageSize: new AMap.Size(32,32)
+									imageSize: new AMap.Size(32, 32)
 								})  // 添加 Icon 图标 URL
 							});
 							var walking = new AMap.Walking({
@@ -80,7 +80,7 @@ $('#searchButton').click(() => {
 			Dialog.init('搜索地点不存在,请更换搜索关键词', 2000);
 		}
 	});
-})
+});
 
 // 选中某一条下拉提示时触发
 AMap.event.addListener(autoComplete, "select", select); //注册监听，当选中某条记录时会触发
