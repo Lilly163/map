@@ -49,6 +49,7 @@ function onComplete(data) {
 			url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
 			dataType: 'json',
 			success: function success(data) {
+				console.log(data);
 				var datas = data.data;
 				var lnglats = [];
 				datas.map(function (value, index) {
@@ -70,6 +71,7 @@ function onComplete(data) {
 						map: map,
 						autoFitView: true
 					});
+
 					_marker.on('click', function markerClick(e) {
 						$('.detail').css('display', 'block');
 						walking.clear(); //清除上一次规划路线
@@ -94,6 +96,7 @@ function onComplete(data) {
 
 				for (var i = 0, marker; i < lnglats.length; i++) {
 					var walking;
+
 					_loop(i, marker);
 				}
 			}
