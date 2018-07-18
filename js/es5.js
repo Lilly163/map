@@ -1,10 +1,9 @@
-'use strict';
 
 var map = new AMap.Map('container', {
 	resizeEnable: true,
 	zoom: 17 //级别
 });
-window.dialog = Dialog.init('正在定位,请稍后');
+// window.dialog = Dialog.init('正在定位,请稍后');
 //地理编码插件，用于通过坐标获取地址信息
 var geocoder = new AMap.Geocoder();
 //添加定位组件，用于获取用户当前的精确位置
@@ -49,7 +48,6 @@ function onComplete(data) {
 			url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
 			dataType: 'json',
 			success: function success(data) {
-				console.log(data);
 				var datas = data.data;
 				var lnglats = [];
 				datas.map(function (value, index) {
@@ -71,7 +69,6 @@ function onComplete(data) {
 						map: map,
 						autoFitView: true
 					});
-
 					_marker.on('click', function markerClick(e) {
 						$('.detail').css('display', 'block');
 						walking.clear(); //清除上一次规划路线
@@ -96,7 +93,6 @@ function onComplete(data) {
 
 				for (var i = 0, marker; i < lnglats.length; i++) {
 					var walking;
-
 					_loop(i, marker);
 				}
 			}
