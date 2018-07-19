@@ -1,4 +1,3 @@
-'use strict';
 
 var map = new AMap.Map('container', {
 	resizeEnable: true,

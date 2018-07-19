@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
@@ -10,20 +10,27 @@
     </script>
 </head>
 <body>
-    
     <div id="container">
         <!-- 展示地图区域 -->
     </div>
+    <!-- 遮罩start -->
+    <div id="mask"></div>
+    <div id='mask_button'>
+        <div class="mask_content">
+           正在定位，请稍后……
+        </div>
+    </div>
+    <!-- 遮罩end -->
     <div id="panel"></div>
-    <section class="search"> 
+    <div class="search"> 
         <div class='right'>
-            <div class='top' style='height:30px;' ></div>
+            <div class='top' style='height:0.8rem;' ></div>
                 <input type="text" class="search_input" placeholder="请输入目的地" id='keyword'  value=''>
                 <span class='icon_search' id='searchButton'></span>
         </div>
         <div id="searchResult"></div>   <!--input输入以后出现的搜索框 -->
-    </section>
-    <section class="detail"   style="display: none">
+    </div>
+    <div class="detail"   style="display: none">
         <div class="storeName">
             <div>
                 <span class="title"></span>&nbsp;
@@ -32,13 +39,10 @@
             <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a>
         </div>
         <div class="location"></div>   <!--地址描述 --> 
-    </section>
+    </div>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&plugin=AMap.Geolocation,AMap.ToolBar,AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete,AMap.Walking&key=89eb665defc1a2a9d76c9ce87d869e20"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src='./main.js'></script>  
 </body>
-
-
-
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&plugin=AMap.Geolocation,Geocoder,AMap.ToolBar,AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete,AMap.Walking&key=89eb665defc1a2a9d76c9ce87d869e20"></script>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src='./main.js'></script>  
 </html>
  

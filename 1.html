@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+        #mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background: #666;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            display: none;
+        }
+
+        .popup {
+            position: absolute;
+            left: 50%;
+            width: 600px;
+            height: 200px;
+            background: #fff;
+            z-index: 1000;
+            border: 1px solid #333;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn_show">遮罩层</button>
+    <div id="mask"></div>
+    <div class="popup"></div>
+    <script>
+        $(function () {
+            $('.btn_show').click(function () {
+                $('#mask').css({
+                    display: 'block',
+                    height: $(document).height()
+                })
+                var $Popup = $('#mask_content');
+                $Popup.css({
+                    left: ($('body').width() - $Popup.width()) / 2 + 'px',
+                    top: ($(window).height() - $Popup.height()) / 2 + $(window).scrollTop() +
+                        'px',
+                    display: 'block'
+                })
+            })
+            $('.btn_close').click(function () {
+                $('#mask,.popup').css('display', 'none');
+            })
+        })
+    </script>
+</body>
+
+</html>

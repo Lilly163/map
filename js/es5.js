@@ -3,7 +3,26 @@ var map = new AMap.Map('container', {
 	resizeEnable: true,
 	zoom: 17 //级别
 });
-// window.dialog = Dialog.init('正在定位,请稍后');
+function showMask(content){     
+	$("#mask").css("height",$(document).height());     
+	$("#mask").css("width",$(document).width());  
+	$(".mask_content").html( content )
+	$('#mask_button').show()  
+	$("#mask").show();     
+}  
+//隐藏遮罩层  
+function hideMask(){
+	$('#mask_button').hide()      
+	$("#mask").hide();     
+}
+function show_hide(content,time){
+	showMask(content)
+	setTimeout( hideMask,time )
+}
+$("#keyword").on("input",function(e){
+	$('.detail').css('display', 'none');
+});
+showMask() 
 //地理编码插件，用于通过坐标获取地址信息
 var geocoder = new AMap.Geocoder();
 //添加定位组件，用于获取用户当前的精确位置
@@ -28,7 +47,7 @@ function getCity(lnglatXY) {
 					newcity = result.regeocode.addressComponent.city || result.regeocode.addressComponent.province;
 					reslove(newcity);
 				} else {
-					Dialog.init('该地区暂不支持', 2000);
+					show_hide('该地区暂不支持',2000)
 				}
 			});
 		});
@@ -39,7 +58,7 @@ geolocation.getCurrentPosition();
 AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
 AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
 function onComplete(data) {
-	Dialog.close(dialog);
+	hideMask()
 	var startLng = Math.abs(data.position.lng);
 	var startLat = Math.abs(data.position.lat);
 	var lnglatXY = [startLng, startLat];
@@ -58,7 +77,6 @@ function onComplete(data) {
 					_marker = new AMap.Marker({
 						position: lnglats[i],
 						map: map,
-						//    icon: './images/result.png', // 添加 Icon 图标 URL
 						icon: new AMap.Icon({
 							image: './images/result.png',
 							size: new AMap.Size(40, 45), //图标大小
@@ -79,7 +97,6 @@ function onComplete(data) {
 						$('.location').html(datas[i].address);
 						$('.storeName .phone').attr('href', 'tel:' + datas[i].phone);
 						walking.search([startLng, startLat], [endLng, endLat]);
-						//进行路线规划，并对返回信息进行处理    
 						$('.storeName .map').click(function () {
 							walking.searchOnAMAP({
 								origin: [startLng, startLat],
@@ -103,11 +120,9 @@ function onComplete(data) {
 function onError(data) {
 	// 定位出错
 	if (data.message.indexOf('Geolocation permission denied.') !== -1) {
-		Dialog.close(dialog);
-		Dialog.init('定位失败!请打开浏览器或者APP的定位权限', 1800);
+	     show_hide('<p>定位失败！</p>请打开浏览器定位权限',2500)
 	} else {
-		Dialog.close(dialog);
-		Dialog.init('无法获取精确位置,将定位您所在的城市。', 1800);
+		show_hide('<p>无法获取精确位置</p>请尝试刷新或搜索',2500)
 	}
 	onLocateFailed();
 };
@@ -133,8 +148,6 @@ var onLocateSuccess = function onLocateSuccess(result) {
 	placeSearch.setCity(result.addressComponent.citycode);
 	autoComplete.setCity(result.addressComponent.citycode);
 };
-
-//显示起始marker，并开启拖拽调整起始位置的功能
 var searchInput = document.getElementById('keyword');
 var city = "";
 //输入提示组件，在searchInput输入文字后，将自动显示相关的地点提示
@@ -170,8 +183,6 @@ $('#searchButton').click(function () {
 						datas.map(function (value, index) {
 							lnglats.push([value.longitude, value.latitude]);
 						});
-						// console.log(lnglats)
-
 						var _loop2 = function _loop2(i, _marker3) {
 							_marker3 = new AMap.Marker({
 								position: lnglats[i],
@@ -222,7 +233,7 @@ $('#searchButton').click(function () {
 				});
 			});
 		} else {
-			Dialog.init('搜索地点不存在,请更换搜索关键词', 2000);
+			show_hide('<p>搜索地点不存在,</p><p>请更换搜索关键词</p>',2000)
 		}
 	});
 });
