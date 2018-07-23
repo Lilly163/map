@@ -9,7 +9,7 @@ body {
 #container {
     height:100%
 }
-#mask {   
+#mask {
     position: absolute;
     top: 0;
     left: 0;
@@ -19,12 +19,12 @@ body {
     background: #777;
     opacity: 0.5;
     filter: alpha(opacity=50);
-    display: none; 
-} 
-#mask_button{ 
+    display: none;
+}
+#mask_button{
     position: absolute;
     left: 50%;
-    margin-left:-2.6667rem; 
+    margin-left:-2.6667rem;
     bottom: 50%;
     width: 5.3333rem;
     height: auto;
@@ -32,13 +32,13 @@ body {
     background:rgb(245, 241, 241);
     z-index: 1000000;
     overflow: hidden;
-    box-shadow: 0.1333rem 0.2667rem 30px rgba(0,0,0,0.25) ;
-    display: none; 
+    box-shadow: 0.1333rem 0.2667rem 0.8rem rgba(0,0,0,0.25) ;
+    display: none;
     text-align: center;
     border: none;
-}   
+}
 .mask_content{
-    font-size: 14px;
+    font-size: 0.3733rem;
     font-family: 'Microsoft YaHei';
     line-height:1.4em;
     color: #444;
@@ -81,7 +81,7 @@ body {
     bottom:0;
     background:white;
     width:92%;
-    height:2.5rem;
+    height:2.7rem;
     border-radius:.2rem;
     text-align:left;
     padding-left:8%
@@ -94,7 +94,7 @@ body {
 }
 .detail .storeName .title {
     font-size:.4267rem;
-    font-weight:bold
+    font-weight:bold;
 }
 .detail .storeName .distance {
     font-size:.32rem;
@@ -104,8 +104,8 @@ body {
 .detail .storeName .phone img {
     position:absolute;
     top:.5067rem;
-    right:2.6667rem;
-    width:.7rem
+    right:2.1rem;
+    width:.8rem
 }
 .detail .storeName .map {
     position:absolute;
@@ -113,11 +113,13 @@ body {
     right:1.3333rem
 }
 .detail .storeName .map img {
-    width:.7rem;
-    height:.7rem
+    position:absolute;
+    margin-left: -0.2133rem;
+    width:.8rem;
 }
-.detail .location {
-}
+/* .detail .location {
+} */
+/* 处理高德地图自带图标*/
 .amap-zoomcontrol {
     display:none
 }

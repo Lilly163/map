@@ -10,21 +10,20 @@
     </script>
 </head>
 <body>
+
     <div id="container">
         <!-- 展示地图区域 -->
     </div>
-    <!-- 遮罩start -->
     <div id="mask"></div>
     <div id='mask_button'>
         <div class="mask_content">
-           正在定位，请稍后……
+           正在定位，请稍后
         </div>
     </div>
-    <!-- 遮罩end -->
     <div id="panel"></div>
-    <div class="search"> 
+    <div class="search">
         <div class='right'>
-            <div class='top' style='height:0.8rem;' ></div>
+            <div class='top' style='height:30px;' ></div>
                 <input type="text" class="search_input" placeholder="请输入目的地" id='keyword'  value=''>
                 <span class='icon_search' id='searchButton'></span>
         </div>
@@ -33,16 +32,15 @@
     <div class="detail"   style="display: none">
         <div class="storeName">
             <div>
-                <span class="title"></span>&nbsp;
+                <span class="title"></span>
             </div>
             <a class="phone"><img src="./images/phone.png" alt=""></a>
             <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a>
         </div>
-        <div class="location"></div>   <!--地址描述 --> 
+        <div class="location"></div>   <!--地址描述 -->
     </div>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&plugin=AMap.Geolocation,AMap.ToolBar,AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete,AMap.Walking&key=89eb665defc1a2a9d76c9ce87d869e20"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src='./main.js'></script>  
 </body>
 </html>
- 

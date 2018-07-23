@@ -53,15 +53,7 @@ function getCity(lnglatXY) {
 		});
 	});
 }
-map.addControl(geolocation);
-geolocation.getCurrentPosition();
-AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
-AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
-function onComplete(data) {
-	hideMask()
-	var startLng = Math.abs(data.position.lng);
-	var startLat = Math.abs(data.position.lat);
-	var lnglatXY = [startLng, startLat];
+function ajaxCity(startLng,startLat,lnglatXY){
 	getCity(lnglatXY).then(function (city) {
 		$.ajax({
 			url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
@@ -115,6 +107,18 @@ function onComplete(data) {
 			}
 		});
 	});
+}
+map.addControl(geolocation);
+geolocation.getCurrentPosition();
+AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
+AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
+
+function onComplete(data) {
+	hideMask()
+	var startLng = Math.abs(data.position.lng);
+	var startLat = Math.abs(data.position.lat);
+	var lnglatXY = [startLng, startLat];
+  ajaxCity(startLng,startLat,lnglatXY)
 };
 
 function onError(data) {
@@ -173,65 +177,7 @@ $('#searchButton').click(function () {
 				position: new AMap.LngLat(pois.lng, pois.lat)
 			});
 			map.add(markerNow);
-			getCity(lnglatXY).then(function (city) {
-				$.ajax({
-					url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
-					dataType: 'json',
-					success: function success(data) {
-						var datas = data.data;
-						var lnglats = [];
-						datas.map(function (value, index) {
-							lnglats.push([value.longitude, value.latitude]);
-						});
-						var _loop2 = function _loop2(i, _marker3) {
-							_marker3 = new AMap.Marker({
-								position: lnglats[i],
-								map: map,
-								icon: new AMap.Icon({
-									image: './images/result.png',
-									size: new AMap.Size(40, 45), //图标大小
-									imageSize: new AMap.Size(40, 45)
-								}) // 添加 Icon 图标 URL
-							});
-							walking = new AMap.Walking({
-								map: map,
-								autoFitView: true
-							});
-
-
-							_marker3.on('click', function markerClick(e) {
-								$('.detail').css('display', 'block');
-								walking.clear(); //清除上一次规划路线
-								var endLng = e.lnglat.lng;
-								var endLat = e.lnglat.lat;
-								console.log(startLng, startLat, endLng, endLat);
-								$('.storeName div>.title').html(datas[i].name);
-								$('.location').html(datas[i].address);
-								$('.storeName .phone').attr('href', 'tel:' + datas[i].phone);
-								// 根据起终点经纬度规划步行导航路线
-
-								walking.search([startLng, startLat], [endLng, endLat]);
-								//  $('.storeName .map').attr('href',`http://uri.amap.com/navigation?from=${startLng},${startLat}&to=${endLng},${endLat}&mode=walk&policy=1&src=mypage&coordinate=gaode&callnative=0`);
-								$('.storeName .map').click(function () {
-
-									walking.searchOnAMAP({
-										origin: [startLng, startLat],
-										destination: [endLng, endLat]
-									});
-								});
-							});
-							map.add(_marker3);
-							_marker2 = _marker3;
-						};
-
-						for (var i = 0, _marker2; i < lnglats.length; i++) {
-							var walking;
-
-							_loop2(i, _marker2);
-						}
-					}
-				});
-			});
+			ajaxCity(startLng,startLat,lnglatXY)
 		} else {
 			show_hide('<p>搜索地点不存在,</p><p>请更换搜索关键词</p>',2000)
 		}
@@ -252,66 +198,6 @@ function select(e) {
 			position: new AMap.LngLat(e.poi.location.lng, e.poi.location.lat)
 		});
 		map.add(markerNow);
-		getCity(lnglatXY).then(function (city) {
-			$.ajax({
-				url: 'http://101.201.108.106:8127/findAdminStroe?city=' + city,
-				dataType: 'json',
-				success: function success(data) {
-					var datas = data.data;
-					var lnglats = [];
-					datas.map(function (value, index) {
-						lnglats.push([value.longitude, value.latitude]);
-					});
-					// console.log(lnglats)
-
-					var _loop3 = function _loop3(i, _marker5) {
-						_marker5 = new AMap.Marker({
-							position: lnglats[i],
-							map: map,
-							// icon: './images/result.png', // 添加 Icon 图标 URL
-							icon: new AMap.Icon({
-								image: './images/result.png',
-								size: new AMap.Size(40, 45), //图标大小
-								imageSize: new AMap.Size(40, 45)
-							})
-						});
-						walking = new AMap.Walking({
-							map: map,
-							autoFitView: true
-						});
-
-
-						_marker5.on('click', function markerClick(e) {
-							$('.detail').css('display', 'block');
-							walking.clear(); //清除上一次规划路线
-							var endLng = e.lnglat.lng;
-							var endLat = e.lnglat.lat;
-							console.log(startLng, startLat, endLng, endLat);
-							$('.storeName div>.title').html(datas[i].name);
-							$('.location').html(datas[i].address);
-							$('.storeName .phone').attr('href', 'tel:' + datas[i].phone);
-							// 根据起终点经纬度规划步行导航路线
-
-							walking.search([startLng, startLat], [endLng, endLat]);
-							//  $('.storeName .map').attr('href',`http://uri.amap.com/navigation?from=${startLng},${startLat}&to=${endLng},${endLat}&mode=walk&policy=1&src=mypage&coordinate=gaode&callnative=0`);
-							$('.storeName .map').click(function () {
-								walking.searchOnAMAP({
-									origin: [startLng, startLat],
-									destination: [endLng, endLat]
-								});
-							});
-						});
-						map.add(_marker5);
-						_marker4 = _marker5;
-					};
-
-					for (var i = 0, _marker4; i < lnglats.length; i++) {
-						var walking;
-
-						_loop3(i, _marker4);
-					}
-				}
-			});
-		});
+		ajaxCity(startLng,startLat,lnglatXY)
 	}
 }
