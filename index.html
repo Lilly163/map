@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;"> -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
-    <link rel="stylesheet" href="./index.css">
-    <!-- <link rel="stylesheet" href="css/dialog.css">
-    <link rel="stylesheet" href="css/index11.css"> -->
+    <script>
+    var oHtml = document.getElementsByTagName('html')[0];
+     var width = oHtml.clientWidth;
+     oHtml.style.fontSize = 37.5 * (width/320) + 'px'  //1rem为16px
+    </script>
+    <!-- <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script> -->
+    <link rel="stylesheet" href="./index0.css">
     <script>
     </script>
 </head>
@@ -20,30 +23,33 @@
     </div>
     <div id="mask"></div>
     <div id='mask_button'>
-        <div class="mask_content">
+        <Button class="button">
            正在定位，请稍后
-        </div>
+        </Button>
     </div>
     <div id="panel"></div>
     <div class="search">
         <div class='right'>
-            <div class='top' style='height:30px;' ></div>
                 <input type="text" class="search_input" placeholder="请输入目的地" id='keyword'  value=''>
                 <span class='icon_search' id='searchButton'></span>
         </div>
         <div id="searchResult"></div>   <!--input输入以后出现的搜索框 -->
     </div>
-    <div class="detail"   style="display: none">
+       <div class="detail"  >   <!-- style="display: none" -->
         <div class="storeName">
-            <div>
-                <span class="title"></span>
-            </div>
-            <a class="phone"><img src="./images/phone.png" alt=""></a>
-            <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a>
-        </div>
+                <span class="title">测试</span>
+                <!-- <a class="phone"><img src="./images/phone.png" alt=""></a>
+                <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a> -->
+           </div>
         <!-- <div class='storePhone'>tel：1761036710</div> -->
-        <div class="location"></div>   <!--地址描述 -->
+        <div class="location">地址描述</div>   <!--地址描述 -->
     </div>
+    <!-- <div class="detail"> -->
+       <!-- <span class="title">测试</span> -->
+       <!-- <a class="phone"><img src="./images/phone.png" alt=""></a>
+       <a class="map" id="routePlan"><img src="./images/map.png" alt=""></a> -->
+       <!-- <div class="location">地址描述</div>   <!--地址描述 --> -->
+    <!-- </div> -->
     <script src="//cdn.bootcss.com/eruda/1.4.2/eruda.min.js"></script>
     <script>
     // alert(window.navigator.userAgent)
