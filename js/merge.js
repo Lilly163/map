@@ -1,7 +1,7 @@
 
 var map = new AMap.Map('container', {
 	resizeEnable: true,
-	zoom: 17 //级别
+	zoom: 16 //级别
 });
 function showMask(content){
 	$("#mask").css("height",$(document).height());
@@ -80,10 +80,13 @@ function ajaxCity(startLng,startLat,lnglatXY){
 						autoFitView: true
 					});
 					_marker.on('click', function markerClick(e) {
+						console.log(lnglats[i])
 						$('.detail').css('display', 'block');
 						walking.clear(); //清除上一次规划路线
-						var endLng = e.lnglat.lng;
-						var endLat = e.lnglat.lat;
+						// var endLng = e.lnglat.lng;
+						// var endLat = e.lnglat.lat;
+						var endLng = lnglats[i][0];   //更换终点坐标
+						var endLat = lnglats[i][1];   //更换终点坐标
 						console.log(startLng, startLat, endLng, endLat);
 						$('.storeName div>.title').html(datas[i].name);
 						$('.location').html(datas[i].address);

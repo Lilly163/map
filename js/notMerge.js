@@ -90,8 +90,10 @@ function onComplete(data) {
 					_marker.on('click', function markerClick(e) {
 						$('.detail').css('display', 'block');
 						walking.clear(); //清除上一次规划路线
-						var endLng = e.lnglat.lng;
-						var endLat = e.lnglat.lat;
+						// var endLng = e.lnglat.lng;
+						// var endLat = e.lnglat.lat;
+						var endLng = lnglats[i][0];   //更换终点坐标
+						var endLat = lnglats[i][1];
 						console.log(startLng, startLat, endLng, endLat);
 						$('.storeName div>.title').html(datas[i].name);
 						$('.location').html(datas[i].address);
@@ -202,8 +204,10 @@ $('#searchButton').click(function () {
 							_marker3.on('click', function markerClick(e) {
 								$('.detail').css('display', 'block');
 								walking.clear(); //清除上一次规划路线
-								var endLng = e.lnglat.lng;
-								var endLat = e.lnglat.lat;
+								// var endLng = e.lnglat.lng;
+								// var endLat = e.lnglat.lat;
+								var endLng = lnglats[i][0];   //更换终点坐标
+						        var endLat = lnglats[i][1];
 								console.log(startLng, startLat, endLng, endLat);
 								$('.storeName div>.title').html(datas[i].name);
 								$('.location').html(datas[i].address);
@@ -284,8 +288,10 @@ function select(e) {
 						_marker5.on('click', function markerClick(e) {
 							$('.detail').css('display', 'block');
 							walking.clear(); //清除上一次规划路线
-							var endLng = e.lnglat.lng;
-							var endLat = e.lnglat.lat;
+							// var endLng = e.lnglat.lng;
+							// var endLat = e.lnglat.lat;
+							var endLng = lnglats[i][0];   //更换终点坐标
+						    var endLat = lnglats[i][1];
 							console.log(startLng, startLat, endLng, endLat);
 							$('.storeName div>.title').html(datas[i].name);
 							$('.location').html(datas[i].address);
