@@ -127,9 +127,9 @@ function onComplete(data) {
 function onError(data) {
 	// 定位出错
 	if (data.message.indexOf('Geolocation permission denied.') !== -1) {
-	     show_hide('<p>定位失败！</p>请打开浏览器定位权限',2500)
+	     show_hide('定位失败！请打开浏览器定位权限',2500)
 	} else {
-		show_hide('<p>无法获取精确位置</p>请尝试刷新或搜索',2500)
+		show_hide('无法获取精确位置请尝试刷新或搜索',2500)
 	}
 	onLocateFailed();
 };
@@ -182,7 +182,7 @@ $('#searchButton').click(function () {
 			map.add(markerNow);
 			ajaxCity(startLng,startLat,lnglatXY)
 		} else {
-			show_hide('<p>搜索地点不存在,</p><p>请更换搜索关键词</p>',2000)
+			show_hide('搜索地点不存在,请更换搜索关键词',2000)
 		}
 	});
 });
