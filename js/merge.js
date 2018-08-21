@@ -1,7 +1,7 @@
 
 var map = new AMap.Map('container', {
 	resizeEnable: true,
-	zoom: 16 //级别
+	zoom: 17 //级别
 });
 function showMask(content){
 	$("#mask").css("height",$(document).height());
@@ -30,6 +30,7 @@ var geolocation = new AMap.Geolocation({
 	enableHighAccuracy: true,
 	showCircle: true, //是否显示定位结果的圆
 	showMarker: true, //是否显示定位结果的标记
+	// icon: '../images/now.png',
 	showButton: false, //是否现实组件的定位按钮
 	timeout: 5000 //浏览器定位超时时间5s
 
@@ -80,14 +81,14 @@ function ajaxCity(startLng,startLat,lnglatXY){
 						autoFitView: true
 					});
 					_marker.on('click', function markerClick(e) {
-						console.log(lnglats[i])
+						// console.log(lnglats[i])
 						$('.detail').css('display', 'block');
 						walking.clear(); //清除上一次规划路线
 						// var endLng = e.lnglat.lng;
 						// var endLat = e.lnglat.lat;
 						var endLng = lnglats[i][0];   //更换终点坐标
 						var endLat = lnglats[i][1];   //更换终点坐标
-						console.log(startLng, startLat, endLng, endLat);
+						// console.log(startLng, startLat, endLng, endLat);
 						$('.storeName div>.title').html(datas[i].name);
 						$('.location').html(datas[i].address);
 						$('.storeName .phone').attr('href', 'tel:' + datas[i].phone);
@@ -129,7 +130,7 @@ function onError(data) {
 	if (data.message.indexOf('Geolocation permission denied.') !== -1) {
 	     show_hide('定位失败！请打开浏览器定位权限',2500)
 	} else {
-		show_hide('无法获取精确位置请尝试刷新或搜索',2500)
+		show_hide('无法获取精确位置，请尝试刷新或搜索',2500)
 	}
 	onLocateFailed();
 };
@@ -155,6 +156,7 @@ var onLocateSuccess = function onLocateSuccess(result) {
 	placeSearch.setCity(result.addressComponent.citycode);
 	autoComplete.setCity(result.addressComponent.citycode);
 };
+
 var searchInput = document.getElementById('keyword');
 var city = "";
 //输入提示组件，在searchInput输入文字后，将自动显示相关的地点提示
@@ -164,10 +166,13 @@ var autoComplete = new AMap.Autocomplete({
 	noshowDistrict: true
 });
 var placeSearch = new AMap.PlaceSearch({
-	map: map
+	map: map,
 }); //构造地点查询类
 // 点击搜索的时候调用关键字查询函数
 $('#searchButton').click(function () {
+	placeSearch.search('', function (status, SearchResult) {
+        return false;
+	})
 	placeSearch.search(searchInput.value, function (status, SearchResult) {
 		if (status === 'complete') {
 			map.clearMap();
@@ -177,7 +182,7 @@ $('#searchButton').click(function () {
 			var lnglatXY = [startLng, startLat];
 			map.setZoom(13), map.setCenter(pois);
 			var markerNow = new AMap.Marker({
-				position: new AMap.LngLat(pois.lng, pois.lat)
+				position: new AMap.LngLat(pois.lng, pois.lat),
 			});
 			map.add(markerNow);
 			ajaxCity(startLng,startLat,lnglatXY)

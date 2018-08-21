@@ -16,14 +16,14 @@
     </div>
     <div id="mask"></div>
     <div id='mask_button'>
-        <div class="mask_content">
+        <Button class="mask_content">
            正在定位，请稍后
-        </div>
+        </Button>
     </div>
     <div id="panel"></div>
     <div class="search">
         <div class='right'>
-            <div class='top' style='height:30px;' ></div>
+            <div class='top'></div>
                 <input type="text" class="search_input" placeholder="请输入目的地" id='keyword'  value=''>
                 <span class='icon_search' id='searchButton'></span>
         </div>
@@ -39,6 +39,7 @@
         </div>
         <div class="location"></div>   <!--地址描述 -->
     </div>
+    <script src="//cdn.bootcss.com/eruda/1.4.2/eruda.min.js"></script>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&plugin=AMap.Geolocation,AMap.ToolBar,AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete,AMap.Walking&key=89eb665defc1a2a9d76c9ce87d869e20"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src='./main.js'></script>  

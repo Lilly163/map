@@ -25,22 +25,6 @@ body {
     width: 100%;
     text-align: center
 }
-/* #mask_button{
-    position: absolute;
-    left: 50%;
-    margin-left:-2.6667rem;
-    bottom: 50%;
-    width: 5.3333rem;
-    height: auto;
-    border-radius: 0.2667rem;
-    background:rgb(245, 241, 241);
-    z-index: 1000000;
-    overflow: hidden;
-    box-shadow: 0.1333rem 0.2667rem 0.8rem rgba(0,0,0,0.25) ;
-    display: none;
-    text-align: center;
-    border: none;
-} */
 #mask_button .mask_content {
     padding:0.2667rem 0.5333rem;
     border:none;
@@ -48,9 +32,11 @@ body {
     border-radius: 0.2667rem;
     background: #888888;
     color: #fff;
+    font-size: 0.4rem;
 }
 .mask_content p{
     padding-bottom: 0.08rem;
+    
 }
 .search  {
     position: fixed;
@@ -61,8 +47,8 @@ body {
 .search .icon_search {
 box-sizing: border-box;
    position: absolute;
-   right: 0.8rem;
-   bottom:-0.0427rem;
+   right: 10%;
+   bottom:0;
    width: 1rem;
    height:1rem;
    background-image: url("./images/search (1).png");
@@ -74,8 +60,8 @@ box-sizing: border-box;
 .search .search_input {
   box-sizing: border-box;
   width:85%;
-  height:0.9rem;
-  font-size: 0.2901rem;
+  height:1rem;
+  font-size: 0.34rem;
   margin-top: 0.64rem;
   border:none;
   outline: none;
@@ -98,15 +84,15 @@ box-sizing: border-box;
     position:relative;
     width:100%;
     height:1.1rem;
-    padding-top:.5rem
+    padding-top:.7rem
 }
 .detail .storeName .title {
     display:block;
-    font-size:0.4rem;
+    font-size:0.45rem;
     font-weight:bold;
 }
 .detail .location {
-    font-size:0.3rem;
+    font-size:0.35rem;
     font-weight:normal;
     margin-top: -0.1333rem;
     color:#333
@@ -117,15 +103,15 @@ box-sizing: border-box;
     background: red;
 }
 .detail img {
-    width:0.7rem;
+    width:0.75rem;
     position: absolute;
     top: 0.48rem;
 }
 .detail .phone img {
-    right : 2.1333rem;
+    right : 2.4rem;
 }
 .detail .map img {
-    right : 0.9rem;
+    right : 1rem;
 }
 /* .detail .storeName .phone img {
     position:absolute;
@@ -157,7 +143,11 @@ box-sizing: border-box;
 .amap-lib-marker-to {
     display:none
 }
+.amap-sug-result {
+    top:1.9467rem !important;
+}
 .auto-item {
     box-sizing: border-box;
     padding-left:0.4rem; 
+    font-size:0.32rem;
 }

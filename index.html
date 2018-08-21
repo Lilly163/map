@@ -4,12 +4,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script>
-        var oHtml = document.getElementsByTagName('html')[0];
-         var width = oHtml.clientWidth;
-         oHtml.style.fontSize = 37.5 * (width/320) + 'px'  //1rem为16px
-    </script>
-    <!-- <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script> -->
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
     <link rel="stylesheet" href="./index.css">
     <script>
     </script>
@@ -44,6 +39,17 @@
         </div>
         <div class="location"></div>   <!--地址描述 -->
     </div>
+    <script src="//cdn.bootcss.com/eruda/1.4.2/eruda.min.js"></script>
+    <script>
+    // alert(window.navigator.userAgent)
+        var el = document.createElement('div');
+        document.body.appendChild(el);
+        eruda.init({
+            container: el,
+            tool: ['console', 'elements'],
+            useShadowDom: true
+        });
+    </script>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&plugin=AMap.Geolocation,AMap.ToolBar,AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete,AMap.Walking&key=89eb665defc1a2a9d76c9ce87d869e20"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src='./js//merge.js'></script>  
